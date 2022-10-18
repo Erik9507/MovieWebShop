@@ -1,0 +1,12 @@
+﻿@using MovieWebShop.ViewModels
+@model HomeViewModel
+
+<div class="row">
+    <h3><a asp-controller="Movie" asp-action="Create">Create</a></h3>
+    @foreach (var item in Model.getMovies)
+    {
+
+            <partial name="Components//MovieCard" model="item" />
+    }
+
+</div>

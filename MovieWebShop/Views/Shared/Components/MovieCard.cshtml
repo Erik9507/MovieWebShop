@@ -1,0 +1,22 @@
+﻿@model Movie
+
+<div class="col-sm-4 col-lg-4 col-md-4">
+    <div class="caption">
+        <h3><a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.MovieId">@Model.Title</a></h3>
+        <h5 class="pull-right">@Model.Price.ToString("c")</h5>
+        <p>Genre: @Model.Genre.GenreName</p>
+        <p>Description: @Model.Description</p>
+        <p>Movies in stock: @Model.Stock</p>
+ 
+    </div>
+
+    <div class="addToCart">
+        <p class="button">
+            <a class="btn btn-primary"
+               asp-controller="ShoppingCart"
+               asp-action="AddToCart"
+               asp-route-id="@Model.MovieId">Add To Cart</a>
+        </p>
+    </div>
+
+</div>
