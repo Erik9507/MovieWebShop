@@ -1,1 +1,36 @@
-﻿<h1>@ViewBag.CheckOutCompleteMessage</h1>
+﻿@model MovieWebShop.Models.Order
+
+<h2>Thank you for your order!</h2>
+
+<h5 class="mt-5">Order Id: @Model.OrderId</h5>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+
+            <th>Selected Amount</th>
+            <th>Movie</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderItems)
+        {
+            <tr>
+                <td class="text-left">
+                    @item.Quantity
+                </td>
+                <td class="text-left">@item.movie.Title</td>
+                <td class="text-right">@item.movie.Price.ToString("c")</td>
+                <td class="text-right">@((item.Quantity * item.movie.Price).ToString("c"))</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-right">Total: @Model.OrderTotal.ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+

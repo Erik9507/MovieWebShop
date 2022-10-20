@@ -1,5 +1,4 @@
-﻿//using AspNetCore;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieWebShop.Interfaces;
 using MovieWebShop.Models;
@@ -48,7 +47,7 @@ namespace MovieWebShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieId, Title, Director, ReleaseYear, GenreId, Description, Price, Stock")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("MovieId, Title, Director, ReleaseYear, GenreId, Description, Price, Stock, SalePrice, SaleMessage, IsOnSale")] Movie movie)
         {
 
             _repo.UpdateMovie(movie, id);
@@ -66,7 +65,6 @@ namespace MovieWebShop.Controllers
             if (movie == null) { return BadRequest(); }
             var added = _repo.AddMovie(movie);
             return RedirectToAction(nameof(Index));
-            //return CreatedAtAction(nameof(Details), new { id = added.MovieId }, added);
         }
 
         public async Task<IActionResult> Delete(int id)

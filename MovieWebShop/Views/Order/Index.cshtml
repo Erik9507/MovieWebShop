@@ -1,0 +1,13 @@
+﻿
+@using MovieWebShop.ViewModels
+@model OrdersViewModel
+
+<h1>Order History</h1>
+<br />
+<div class="row">
+    @foreach (var item in Model.orders)
+    {
+        <partial name="Components//OrderCard" model="item" />
+    }
+
+</div>

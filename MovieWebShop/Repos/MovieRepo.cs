@@ -68,6 +68,9 @@ namespace MovieWebShop.Repos
                 movieToUpdate.Price = movie.Price;
                 movieToUpdate.ReleaseYear = movie.ReleaseYear;
                 movieToUpdate.GenreId = movie.GenreId;
+                movieToUpdate.SaleMessage = movie.SaleMessage;
+                movieToUpdate.SalePrice = movie.SalePrice;
+                movieToUpdate.IsOnSale = movie.IsOnSale;
                 _context.SaveChanges(); 
                 return movieToUpdate;
             }

@@ -1,31 +1,29 @@
 ﻿@model Order
 
-
-
-<form asp-action="checkout" method="post" class="form-horizontal" role="form">
-	<h4>Confirm purchase</h4>
-	<div asp-validation-summary="All" class="text-danger"></div>
-	<input asp-for="@Model.CustomerName" placeholder="Full Name"/>
-	<input asp-for="@Model.CustomerAddress" placeholder="Address" />
-	<input asp-for="CustomerPhoneNumber" placeholder="PhoneNumber" />
-	<div class="form-group">
-		<div class="col-md-offset 2 col-md-5">
-			<input type="submit" class="btn btn-primary" value="Complete Order" />
-		</div>
-	</div>
-</form>
-
-<hr />
-
-@*<table class="table table-bordered table-striped">
+<h5 class="mt-5">Order Id: @Model.OrderId</h5>
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
-
+            <th>Customer Name</th>
+            <th>Address</th>
+            <th class="text-right">Zip Code</th>
+            <th class="text-right">Phone Number</th>
+        </tr>
+    </thead>
+    <tr>
+        <td class="text-left">
+            @Model.CustomerName
+        </td>
+        <td class="text-left">@Model.CustomerAddress</td>
+        <td class="text-right">43245</td>
+        <td class="text-right">@Model.CustomerPhoneNumber</td>
+    </tr>
+    <thead>
+        <tr>
             <th>Selected Amount</th>
             <th>Movie</th>
             <th class="text-right">Price</th>
             <th class="text-right">Subtotal</th>
-
         </tr>
     </thead>
     <tbody>
@@ -46,4 +44,4 @@
             <td colspan="4" class="text-right">Total: @Model.OrderTotal.ToString("c")</td>
         </tr>
     </tfoot>
-</table>*@
+</table>

@@ -2,16 +2,19 @@
 
 namespace MovieWebShop.Models
 {
-    public class OrderDetail
+    public class OrderItem
     {
         [Key]
         public int OrderDetailId { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
         public int OrderId { get; set; }
+        public int MovieId { get; set; }
         public Order order { get; set; }
-        public int movieId { get; set; }
+        
         public Movie movie { get; set; }
 
-        public int Amount { get; set; }
-        public decimal Price { get; set; }
+        
+        
     }
 }

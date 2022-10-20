@@ -10,7 +10,10 @@
         public int GenreId { get; set; }
         public Genre Genre { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
+        public decimal Price { get; set; }      
         public int Stock { get; set; }
+        public bool IsOnSale { get; set; }
+        public decimal SalePrice { get; set; }
+        public string SaleMessage { get; set; }
     }
 }
