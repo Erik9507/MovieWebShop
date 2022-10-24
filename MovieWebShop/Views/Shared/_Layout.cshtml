@@ -3,25 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @*<title>@ViewData["Title"] - MovieWebShop</title>*@
-    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MovieWebShop.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="headerNav"> 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+    <header class="headerNav">        
+        <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-@*                <a class="navbar-brand" asp-area="" asp-controller="Movie" asp-action="Index"><img src=~/Images/LionBankInc.jpeg /></a>*@                
-                <a class="navbar-brand" asp-area="" asp-controller="Movie" asp-action="Index"><img src="~/Images/2d13694c49f917e0166d696e4f67a5e1.png" /></a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <a class="navbar-brand" asp-area="" asp-controller="Movie" asp-action="Index"><img src="~/Images/2d13694c49f917e0166d696e4f67a5e1.png" /></a>
+                   
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="Index">Home</a>
                         </li>
@@ -31,15 +27,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
                         </li>
-                        <form asp-controller="Movie" asp-action="Search" method="get">
-                            <div class="nav-item">
-                                <p>
-                                    <input type="text" name="name" placeholder="Search title" clas="nav-item" />
-                                    <input type="submit" value="Search" class="btn btn-primary mx-2" />
-                                </p>
-                            </div>
-                        </form>
                     </ul>
+                    <form class="d-flex" asp-controller="Movie" asp-action="Search" method="get">                       
+                            <input type="text" name="name" placeholder="Search title" class="nav-item" />
+                            <button type="submit" value="Search" class="btn btn-primary">Search</button>
+                    </form>
                 </div>
             </div>
         </nav>
