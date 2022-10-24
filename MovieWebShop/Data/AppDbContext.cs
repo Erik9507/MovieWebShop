@@ -10,13 +10,16 @@ namespace MovieWebShop.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Order> Orders { get; set; }
-        //public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<ShoppingcartItems> ShoppingCartItems { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<OrderItem> OrderDetails { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Genre>().HasData(new Genre { GenreId = 1, GenreName = "Comedy" });
+        }
     }
 }

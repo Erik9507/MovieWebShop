@@ -8,37 +8,26 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieWebShop.Repos
 {
-    public class ShoppingCartRepo //: IShoppingCartRepo
+    public class ShoppingCart //: IShoppingCartRepo
     {
         private readonly AppDbContext _context;
         public string ShoppingCartID { get; set; }
         public List<ShoppingcartItems> ShoppingCartItems { get; set; }
-        public ShoppingCartRepo(AppDbContext context)
+        public ShoppingCart(AppDbContext context)
         {
             _context = context;
         }
 
-        public Order CreateOrder()
-        {
-            
-            Order order = new Order();
-
-            foreach (var item in ShoppingCartItems)
-            {
-                order.OrderDetails.Add(new OrderDetail { movieId = item.Movie.MovieId, Amount = item.Quantity, Price = item.Movie.Price });
-            }
-            return order;
-        }
-
-        public static ShoppingCartRepo GetCart(IServiceProvider services)
+        public static ShoppingCart GetCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+
             var context = services.GetService<AppDbContext>();
+            string cartId = session.GetString("ShoppingCartID") ?? Guid.NewGuid().ToString();
 
-            string cartId = session.GetString("CartID") ?? Guid.NewGuid().ToString();
-            session.SetString("CartID", cartId);
+            session.SetString("ShoppingCartID", cartId);
 
-            return new ShoppingCartRepo(context) { ShoppingCartID = cartId };
+            return new ShoppingCart(context) { ShoppingCartID = cartId };
         }
 
         
@@ -75,7 +64,7 @@ namespace MovieWebShop.Repos
 
         public void ClearCart(string id)
         {
-            var itemsInCart = _context.ShoppingCartItems.Include(m => m.Movie).Where(s => s.ShoppingcartId == id).ToList();
+            var itemsInCart = _context.ShoppingCartItems.Include(m => m.Movie).ThenInclude(m => m.Genre).Where(s => s.ShoppingcartId == id).ToList();
             foreach (var item in itemsInCart)
             {
                 item.Movie.Stock = item.Movie.Stock + item.Quantity;
@@ -89,8 +78,11 @@ namespace MovieWebShop.Repos
 
         public List<ShoppingcartItems> GetShoppingCartItems()
         {
-            return ShoppingCartItems ?? (ShoppingCartItems = (List<ShoppingcartItems>?)_context.ShoppingCartItems
-                .Where(s => s.ShoppingcartId == ShoppingCartID).Include(m => m.Movie).ToList());
+            return ShoppingCartItems ?? 
+                (ShoppingCartItems = (List<ShoppingcartItems>?)_context.ShoppingCartItems
+                .Where(s => s.ShoppingcartId == ShoppingCartID)
+                .Include(m => m.Movie)
+                .ToList());
         }
 
         public decimal GetTotalPrice()

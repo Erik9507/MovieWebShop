@@ -16,3 +16,32 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.form-group .wide{
+    width: 100%;
+}
+
+.card-title a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.navbar-brand img{
+    max-width: 100px;
+    
+}
+
+.row h3 button{
+    text-decoration: none;
+}
+
+body {
+    background-image: url("https://images.pexels.com/photos/2398354/pexels-photo-2398354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+    backdrop-filter: blur(10px) saturate(0%);
+}
+
+.headerNav nav {
+    background: linear-gradient(90deg, rgba(90,90,90,1) 0%, rgba(211,211,211,1) 56%);
+    
+}

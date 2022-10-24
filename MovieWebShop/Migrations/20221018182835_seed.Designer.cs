@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieWebShop.Data;
 
@@ -11,9 +12,10 @@ using MovieWebShop.Data;
 namespace MovieWebShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221018182835_seed")]
+    partial class seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,31 @@ namespace MovieWebShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("MovieWebShop.Models.Customer", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customers");
+                });
 
             modelBuilder.Entity("MovieWebShop.Models.Genre", b =>
                 {
@@ -65,30 +92,10 @@ namespace MovieWebShop.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsOnSale")
-                        .HasColumnType("bit");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("ReleaseYear")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("SaleEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SaleMessage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("SalePrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("SaleStart")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Stock")
@@ -103,6 +110,19 @@ namespace MovieWebShop.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            MovieId = 1,
+                            Description = "A story about momma and how she do be kinda big, brazy",
+                            Director = "Momma Bigsson",
+                            GenreId = 1,
+                            Price = 150m,
+                            ReleaseYear = new DateTime(2022, 10, 18, 20, 28, 35, 780, DateTimeKind.Local).AddTicks(1892),
+                            Stock = 20,
+                            Title = "Big Mommas House"
+                        });
                 });
 
             modelBuilder.Entity("MovieWebShop.Models.Order", b =>
@@ -113,17 +133,8 @@ namespace MovieWebShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
 
-                    b.Property<string>("CustomerAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerPhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -133,10 +144,12 @@ namespace MovieWebShop.Migrations
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("MovieWebShop.Models.OrderItem", b =>
+            modelBuilder.Entity("MovieWebShop.Models.OrderDetail", b =>
                 {
                     b.Property<int>("OrderDetailId")
                         .ValueGeneratedOnAdd()
@@ -144,7 +157,7 @@ namespace MovieWebShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailId"), 1L, 1);
 
-                    b.Property<int>("MovieId")
+                    b.Property<int>("Amount")
                         .HasColumnType("int");
 
                     b.Property<int>("OrderId")
@@ -153,14 +166,14 @@ namespace MovieWebShop.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("movieId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderDetailId");
 
-                    b.HasIndex("MovieId");
-
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("movieId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -190,6 +203,30 @@ namespace MovieWebShop.Migrations
                     b.ToTable("ShoppingCartItems");
                 });
 
+            modelBuilder.Entity("MovieWebShop.Models.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("MovieWebShop.Models.Movie", b =>
                 {
                     b.HasOne("MovieWebShop.Models.Genre", "Genre")
@@ -201,17 +238,28 @@ namespace MovieWebShop.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("MovieWebShop.Models.OrderItem", b =>
+            modelBuilder.Entity("MovieWebShop.Models.Order", b =>
                 {
-                    b.HasOne("MovieWebShop.Models.Movie", "movie")
+                    b.HasOne("MovieWebShop.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("MovieId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("MovieWebShop.Models.OrderDetail", b =>
+                {
                     b.HasOne("MovieWebShop.Models.Order", "order")
-                        .WithMany("OrderItems")
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieWebShop.Models.Movie", "movie")
+                        .WithMany()
+                        .HasForeignKey("movieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -233,7 +281,7 @@ namespace MovieWebShop.Migrations
 
             modelBuilder.Entity("MovieWebShop.Models.Order", b =>
                 {
-                    b.Navigation("OrderItems");
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }

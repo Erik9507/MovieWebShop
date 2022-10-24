@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieWebShop.Data;
 
@@ -11,9 +12,10 @@ using MovieWebShop.Data;
 namespace MovieWebShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221020090828_saleFix")]
+    partial class saleFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,10 +67,6 @@ namespace MovieWebShop.Migrations
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsOnSale")
                         .HasColumnType("bit");
 
@@ -78,18 +76,12 @@ namespace MovieWebShop.Migrations
                     b.Property<DateTime>("ReleaseYear")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("SaleEnd")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("SaleMessage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("SaleStart")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -103,6 +95,22 @@ namespace MovieWebShop.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            MovieId = 1,
+                            Description = "A story about momma and how she do be kinda big, brazy",
+                            Director = "Momma Bigsson",
+                            GenreId = 1,
+                            IsOnSale = false,
+                            Price = 150m,
+                            ReleaseYear = new DateTime(2022, 10, 20, 11, 8, 28, 474, DateTimeKind.Local).AddTicks(7645),
+                            SaleMessage = "On sale!",
+                            SalePrice = 0m,
+                            Stock = 20,
+                            Title = "Big Mommas House"
+                        });
                 });
 
             modelBuilder.Entity("MovieWebShop.Models.Order", b =>

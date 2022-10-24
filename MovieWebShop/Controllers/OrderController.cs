@@ -2,6 +2,7 @@
 using MovieWebShop.Interfaces;
 using MovieWebShop.Models;
 using MovieWebShop.Repos;
+using MovieWebShop.ViewModels;
 using System.Runtime.CompilerServices;
 
 namespace MovieWebShop.Controllers
@@ -10,39 +11,48 @@ namespace MovieWebShop.Controllers
     {
 
         private readonly IOrderRepo _repo;
-        private readonly ShoppingCartRepo _cartRepo;
+        private readonly ShoppingCart _cart;
 
-        public OrderController(IOrderRepo repo, ShoppingCartRepo cartRepo)
+        public OrderController(IOrderRepo repo, ShoppingCart cartRepo)
         {
             _repo = repo;
-            _cartRepo = cartRepo;
+            _cart = cartRepo;
+        }
+        public IActionResult Index()
+        {
+            OrderViewModel viewModel = new OrderViewModel
+            {
+                Orders = _repo.GetAllOrders()
+            };          
+            return View(viewModel);
         }
 
-        public IActionResult CheckOut()
+        public IActionResult Checkout()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult CheckOut(Order order)
+        public IActionResult Checkout(Order order)
         {
-            _cartRepo.ShoppingCartItems = _cartRepo.GetShoppingCartItems();
-            if (_cartRepo.ShoppingCartItems.Count == 0)
+            _cart.ShoppingCartItems = _cart.GetShoppingCartItems();
+            if (_cart.ShoppingCartItems.Count == 0)
             {
-                ModelState.AddModelError("", "Cart Empty");
+                ModelState.AddModelError("", "Cart is empty, please add a movie to your cart first.");
             }
+
             if (ModelState.IsValid)
             {
                 _repo.CreateOrder(order);
-                //_cartRepo.ClearCart(); gör ny metod
-                return RedirectToAction("CheckOutComplete");
+                _cart.ClearCart(_cart.ShoppingCartID);
+                return View("CheckoutComplete", order);
             }
             return View(order);
         }
 
-        public IActionResult CheckOutComplete()
+        public IActionResult CheckOutComplete(Order order)
         {
-            ViewBag.CheckOutCompleteMessage = "Thank you for your order";
-            return View();
+           return View(order);
         }
 
     }

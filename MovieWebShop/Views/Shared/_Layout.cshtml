@@ -3,16 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MovieWebShop</title>
+    @*<title>@ViewData["Title"] - MovieWebShop</title>*@
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MovieWebShop.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header class="headerNav"> 
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Movie" asp-action="Index">MovieWebShop</a>
+@*                <a class="navbar-brand" asp-area="" asp-controller="Movie" asp-action="Index"><img src=~/Images/LionBankInc.jpeg /></a>*@                
+                <a class="navbar-brand" asp-area="" asp-controller="Movie" asp-action="Index"><img src="~/Images/2d13694c49f917e0166d696e4f67a5e1.png" /></a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,6 +28,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCart" asp-action="Index">Cart</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
+                        </li>
+                        <form asp-controller="Movie" asp-action="Search" method="get">
+                            <div class="nav-item">
+                                <p>
+                                    <input type="text" name="name" placeholder="Search title" clas="nav-item" />
+                                    <input type="submit" value="Search" class="btn btn-primary mx-2" />
+                                </p>
+                            </div>
+                        </form>
                     </ul>
                 </div>
             </div>

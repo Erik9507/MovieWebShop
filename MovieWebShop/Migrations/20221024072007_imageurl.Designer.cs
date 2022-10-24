@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieWebShop.Data;
 
@@ -11,9 +12,10 @@ using MovieWebShop.Data;
 namespace MovieWebShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221024072007_imageurl")]
+    partial class imageurl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,18 +80,12 @@ namespace MovieWebShop.Migrations
                     b.Property<DateTime>("ReleaseYear")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("SaleEnd")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("SaleMessage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("SaleStart")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -165,6 +161,65 @@ namespace MovieWebShop.Migrations
                     b.ToTable("OrderDetails");
                 });
 
+            modelBuilder.Entity("MovieWebShop.Models.OrderLogEntry", b =>
+                {
+                    b.Property<int>("EntryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EntryId"), 1L, 1);
+
+                    b.Property<string>("CustomerAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerPhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("EntryId");
+
+                    b.ToTable("OrderLogEntries");
+                });
+
+            modelBuilder.Entity("MovieWebShop.Models.OrderLogItem", b =>
+                {
+                    b.Property<int>("LogItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LogItemId"), 1L, 1);
+
+                    b.Property<string>("MovieName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrderLogEntryEntryId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("LogItemId");
+
+                    b.HasIndex("OrderLogEntryEntryId");
+
+                    b.ToTable("OrderLogItem");
+                });
+
             modelBuilder.Entity("MovieWebShop.Models.ShoppingcartItems", b =>
                 {
                     b.Property<int>("ItemId")
@@ -220,6 +275,13 @@ namespace MovieWebShop.Migrations
                     b.Navigation("order");
                 });
 
+            modelBuilder.Entity("MovieWebShop.Models.OrderLogItem", b =>
+                {
+                    b.HasOne("MovieWebShop.Models.OrderLogEntry", null)
+                        .WithMany("LogItems")
+                        .HasForeignKey("OrderLogEntryEntryId");
+                });
+
             modelBuilder.Entity("MovieWebShop.Models.ShoppingcartItems", b =>
                 {
                     b.HasOne("MovieWebShop.Models.Movie", "Movie")
@@ -234,6 +296,11 @@ namespace MovieWebShop.Migrations
             modelBuilder.Entity("MovieWebShop.Models.Order", b =>
                 {
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("MovieWebShop.Models.OrderLogEntry", b =>
+                {
+                    b.Navigation("LogItems");
                 });
 #pragma warning restore 612, 618
         }

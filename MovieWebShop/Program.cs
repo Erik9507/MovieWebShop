@@ -16,12 +16,20 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//For Sessions
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddScoped<IMovieRepo, MovieRepo>();
-builder.Services.AddScoped<IGenericRepo<Customer>, CustomerRepo>();
 builder.Services.AddScoped<IGenericRepo<Genre>, GenreRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IGenericRepo<ShoppingcartItems>, ShoppingCartItemRepo>();
-builder.Services.AddScoped<ShoppingCartRepo>(sc => ShoppingCartRepo.GetCart(sc));
+builder.Services.AddScoped<ShoppingCart>(sc => ShoppingCart.GetCart(sc));
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
