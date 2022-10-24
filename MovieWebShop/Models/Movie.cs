@@ -1,4 +1,7 @@
-﻿namespace MovieWebShop.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
+namespace MovieWebShop.Models
 {
     public class Movie
     {
@@ -13,6 +16,7 @@
         public decimal Price { get; set; }      
         public int Stock { get; set; }
         public bool IsOnSale { get; set; }
+        [AllowNull]
         public decimal SalePrice { get; set; }
         public string SaleMessage { get; set; }
         public DateTime SaleStart { get; set; }
