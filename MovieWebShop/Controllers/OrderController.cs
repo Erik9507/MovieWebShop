@@ -20,9 +20,9 @@ namespace MovieWebShop.Controllers
         }
         public IActionResult Index()
         {
-            OrdersViewModel viewModel = new OrdersViewModel
+            OrderViewModel viewModel = new OrderViewModel
             {
-                orders = _repo.GetAllOrders()
+                Orders = _repo.GetAllOrders()
             };          
             return View(viewModel);
         }

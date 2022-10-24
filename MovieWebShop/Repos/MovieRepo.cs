@@ -37,9 +37,9 @@ namespace MovieWebShop.Repos
             return _context.Movies.Include(x => x.Genre).FirstOrDefault(x => x.MovieId == id);
         }
 
-        public Movie GetMovieByName(string name)
+        public IEnumerable<Movie> GetMovieByName(string name)
         {
-            return _context.Movies.Include(x => x.Genre).FirstOrDefault(m => m.Title == name);
+            return _context.Movies.Include(x => x.Genre).Where(m => m.Title.Contains(name)).ToList();
         }
 
         public IEnumerable<Movie> GetMovies

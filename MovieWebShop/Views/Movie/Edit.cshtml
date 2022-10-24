@@ -60,6 +60,18 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="SaleStart" class="control-label"></label>
+        <input asp-for="SaleStart" class="form-control" />
+        <span asp-validation-for="SaleStart"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SaleEnd" class="control-label"></label>
+        <input asp-for="SaleEnd" class="form-control" />
+        <span asp-validation-for="SaleEnd"></span>
+    </div>
+
+    <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 </form>

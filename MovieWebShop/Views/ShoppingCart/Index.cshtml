@@ -17,7 +17,8 @@
         <tbody>
             @foreach (var item in Model.ShoppingCartItems)
             {
-                if(item.Movie.IsOnSale){
+                if(item.Movie.IsOnSale)
+                {
                     item.Movie.Price = item.Movie.SalePrice;
                 }
                 <tr>

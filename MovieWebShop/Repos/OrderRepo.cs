@@ -29,6 +29,7 @@ namespace MovieWebShop.Repos
                     OrderId = order.OrderId,
                     Price = item.Movie.Price * item.Quantity
                 };
+
                 order.OrderItems.Add(orderItem);
                 order.OrderTotal += orderItem.Price;
             }

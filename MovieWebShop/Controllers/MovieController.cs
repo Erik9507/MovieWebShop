@@ -23,6 +23,15 @@ namespace MovieWebShop.Controllers
             return View(homeViewModel);
         }
 
+        public IActionResult Search(string name)
+        {
+            var homeviewmodel = new HomeViewModel
+            {
+                getMovies = _repo.GetMovieByName(name)
+            };
+            return View(homeviewmodel);
+        }
+
 
         public IActionResult Details(int id)
         {

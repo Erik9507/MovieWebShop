@@ -10,11 +10,7 @@ namespace MovieWebShop.Models
         public decimal Price { get; set; }
         public int OrderId { get; set; }
         public int MovieId { get; set; }
-        public Order order { get; set; }
-        
-        public Movie movie { get; set; }
-
-        
-        
+        public Order order { get; set; }        
+        public Movie movie { get; set; }    
     }
 }
