@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MovieWebShop.Data;
 using MovieWebShop.ViewModels;
 
 namespace MovieWebShop.Controllers
@@ -10,12 +11,14 @@ namespace MovieWebShop.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
-        
+        private readonly AppDbContext _context;
 
-        public AdminController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+
+        public AdminController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,AppDbContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this._context = context;    
         }
         public IActionResult Index()
         {
@@ -25,6 +28,11 @@ namespace MovieWebShop.Controllers
         {
             var users = userManager.Users;
             return View(users);
+        }
+        public IActionResult ListMovies()
+        {
+            var movies = _context.Movies.ToList();
+            return View(movies);
         }
         //public IActionResult GetUser(string id)
         //{

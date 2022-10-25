@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    ViewBag.Title = "All Movies";
+}
+<h1>All Movies</h1>
+
+@if (Model.Any())
+{
+    <a asp-action="RegisterUser" asp-controller="Admin"
+   class="btn btn-primary mb-3" style="width:auto">
+        Add New Movie
+    </a>
+
+    foreach (var movie in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                Genre: @movie.Genre
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@movie.Title</h5>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-danger">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No Movies created yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Use the button below to create a movie
+            </h5>
+            <a class="btn btn-primary" style="width:auto" asp-controller="Admin" asp-action="RegisterUser">
+                Add New Movie
+            </a>
+        </div>
+    </div>
+}
