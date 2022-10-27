@@ -71,6 +71,7 @@ namespace MovieWebShop.Repos
                 movieToUpdate.SaleMessage = movie.SaleMessage;
                 movieToUpdate.SalePrice = movie.SalePrice;
                 movieToUpdate.IsOnSale = movie.IsOnSale;
+                movieToUpdate.ImageUrl = movie.ImageUrl;
                 _context.SaveChanges(); 
                 return movieToUpdate;
             }

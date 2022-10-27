@@ -3,7 +3,7 @@
 
 
 <form asp-action="checkout" method="post" class="form-horizontal" role="form">
-	<h4>Confirm purchase</h4>
+    <h4 style="color: whitesmoke">Confirm purchase</h4>
 	<div asp-validation-summary="All" class="text-danger"></div>
 	<input asp-for="@Model.CustomerName" placeholder="Full Name"/>
 	<input asp-for="@Model.CustomerAddress" placeholder="Address" />
