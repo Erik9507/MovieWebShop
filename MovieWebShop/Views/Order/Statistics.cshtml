@@ -1,0 +1,79 @@
+﻿@using MovieWebShop.ViewModels
+@model OrderStatsViewModel
+
+<div class="stats">
+
+<h1 style="color: whitesmoke">Order Statistics</h1>
+	<table class="table rounded rounded-3 table-striped bg-light">
+		<thead>
+			<tr>
+				<th class="text-center">Average order total:</th>
+			</tr>
+		</thead>
+		<tr>
+			<td class="text-center">
+				@{
+					decimal avgSum = (Model.Orders.Select(o => o.OrderTotal).Sum()) / Model.Orders.Count();
+				}
+				@Decimal.Round(avgSum, 2)
+			</td>
+			
+		</tr>
+	</table>
+
+	<table class="table rounded rounded-3 table-striped bg-light">
+		<thead>
+			<tr>
+				<th class="text-center">Average number of items per order:</th>
+			</tr>
+		</thead>
+		<tr>
+			<td class="text-center">
+				@{
+					IEnumerable<int> itemCounts = Model.Orders.Select(o => o.OrderItems.Select(oe => oe.Quantity).Sum());
+
+					int avgItems = 0;
+
+					foreach (var item in itemCounts)
+					{
+						avgItems += item;
+					}
+					avgItems = avgItems / Model.Orders.Count();
+				}
+				@avgItems
+			</td>
+
+		</tr>
+	</table>
+
+
+	<table class="table rounded rounded-3 table-striped bg-light">
+		<thead>
+			<tr>
+				<th class="text-center">Most popular movie:</th>
+			</tr>
+		</thead>
+		<tr>
+			<td class="text-center">
+				@{
+					List<int> movieIds = new List<int>();
+					int most = 0;
+
+					foreach (var Order in Model.Orders)
+					{
+						foreach (var OrderItem in Order.OrderItems)
+						{
+							for (int i = 0; i < OrderItem.Quantity; i++)
+							{
+								movieIds.Add(OrderItem.MovieId);
+							}
+						}
+					}
+					most = movieIds.GroupBy(i => i).OrderByDescending(grp => grp.Count())
+					.Select(grp => grp.Key).First();
+				}
+				@Model.Movies.FirstOrDefault(m => m.MovieId == most).Title
+			</td>
+
+		</tr>
+	</table>

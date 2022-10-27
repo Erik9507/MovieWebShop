@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MovieWebShop.Interfaces;
 using MovieWebShop.Models;
@@ -9,10 +10,12 @@ namespace MovieWebShop.Controllers
     public class MovieController : Controller
     {
         private readonly IMovieRepo _repo;
+        private readonly IGenericRepo<Genre> _gRepo;
 
-        public MovieController(IMovieRepo repo)
+        public MovieController(IMovieRepo repo, IGenericRepo<Genre> gRepo)
         {
             _repo = repo;
+            _gRepo = gRepo;
         }
         public IActionResult Index()
         {
@@ -56,8 +59,9 @@ namespace MovieWebShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MovieId, Title, Director, ReleaseYear, GenreId, Description, Price, Stock, SalePrice, SaleMessage, IsOnSale")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("MovieId, Title, Director, ReleaseYear, GenreId, Description, Price, Stock, SalePrice, SaleMessage, IsOnSale, ImageUrl")] Movie movie)
         {
+            
 
             _repo.UpdateMovie(movie, id);
             return RedirectToAction(nameof(Index));
@@ -65,6 +69,7 @@ namespace MovieWebShop.Controllers
 
         public IActionResult Create()
         {
+            ViewData["GenreID"] = new SelectList(_gRepo.GetAll(), "GenreId", "GenreName");
             return View();
         }
 

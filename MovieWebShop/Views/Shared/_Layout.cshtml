@@ -26,6 +26,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Index">Orders</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Statistics">Statistics</a>
+                        </li>
                     </ul>
                     <form class="d-flex" asp-controller="Movie" asp-action="Search" method="get">
                         <input type="text" name="name" placeholder="Search title" class="nav-item" />
@@ -44,8 +47,8 @@
         <div class="text-center p-3">
             © 2020 Copyright: Sutflix INC.
             <div class="text-end">
-                <input type=button onClick="parent.open('https://www.google.com/')"
-                       value='contact'>
+                <input type=button class="btn btn-primary" onClick="parent.open('https://www.google.com/')"
+                       value='Contact'>
             </div>
         </div>
     </footer>
