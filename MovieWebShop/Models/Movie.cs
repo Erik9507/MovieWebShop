@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace MovieWebShop.Models
@@ -17,6 +18,7 @@ namespace MovieWebShop.Models
         public int Stock { get; set; }
         public bool IsOnSale { get; set; }
         [AllowNull]
+        [Column(TypeName = "decimal(18, 6)")]
         public decimal SalePrice { get; set; }
         public string SaleMessage { get; set; }
         public DateTime SaleStart { get; set; }

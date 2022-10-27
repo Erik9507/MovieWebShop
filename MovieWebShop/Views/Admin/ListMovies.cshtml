@@ -7,7 +7,7 @@
 
 @if (Model.Any())
 {
-    <a asp-action="RegisterUser" asp-controller="Admin"
+    <a asp-action="RegisterMovie" asp-controller="Admin"
    class="btn btn-primary mb-3" style="width:auto">
         Add New Movie
     </a>
@@ -38,7 +38,7 @@ else
             <h5 class="card-title">
                 Use the button below to create a movie
             </h5>
-            <a class="btn btn-primary" style="width:auto" asp-controller="Admin" asp-action="RegisterUser">
+            <a class="btn btn-primary" style="width:auto" asp-controller="Admin" asp-action="RegisterMovie">
                 Add New Movie
             </a>
         </div>
