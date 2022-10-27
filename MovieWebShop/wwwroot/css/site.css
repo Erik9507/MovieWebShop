@@ -1,23 +1,19 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 18px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
-}
-
-.form-group .wide{
+.form-group .wide {
     width: 100%;
 }
 
@@ -27,44 +23,92 @@ body {
     font-weight: bold;
 }
 
-.navbar-brand img{
-    max-width: 100px;
-    
+.navbar-brand img {
+    max-width: 150px;
 }
 
-.row h3 button{
+.row h3 button {
     text-decoration: none;
+}
+
+.row {
+    margin-bottom: 2% !important;
 }
 
 body {
     background-image: url("https://images.pexels.com/photos/2398354/pexels-photo-2398354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
     backdrop-filter: blur(5px) saturate(0%) brightness(50%);
+    height: 500vh;
 }
 
 .headerNav nav {
     background: linear-gradient(90deg, rgba(60,60,60,1) 0%, rgba(211,211,211,1) 150%);
-    
 }
+
 .navbar {
     border-bottom: none !important;
     margin-bottom: 27px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    letter-spacing: 3px;
 }
 
-.nav-item{
+.nav-item {
     border-radius: 5px;
     border: none;
 }
 
-.nav-item a{
-    color: red !important;
-    font-weight: bold;
-}
+    .nav-item a {
+        color: red !important;
+        font-weight: bold;
+        transition: all .15s ease;
+    }
+
+        .nav-item a:hover {
+            letter-spacing: 5px;
+            transition: all .15s ease;
+            color: whitesmoke !important;
+        }
 
 .btn {
+    background-color: red !important;
+    color: whitesmoke !important;
+    border: none !important;
+    font-weight: bold !important;
+    transition: all .15s ease;
+    letter-spacing: 2px;
+}
+
+    .btn:hover {
+        transition: all 0.3s ease;
+        letter-spacing: 2px;
+        font-size: 19px;
+    }
+
+footer {
+    background-color: whitesmoke;
+    background: linear-gradient(90deg, rgba(60,60,60,1) 0%, rgba(211,211,211,1) 150%);
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    height: 5%;
+}
+
+.create {
     background-color: rgba(60,60,60,1) !important;
     color: red !important;
     border: none !important;
     font-weight: bold !important;
+    margin-top: 500px !important;
 }
 
-    
+.text-end {
+    padding-right: 5%;
+}
+
+h4 .og-price {
+    text-decoration: line-through;
+    color: black;
+}
+
+har snabbmeny

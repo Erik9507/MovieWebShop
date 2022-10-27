@@ -1,9 +1,9 @@
 ﻿@model MovieWebShop.Repos.ShoppingCart
 
-<h2>Shopping Cart</h2>
+<h2 style="color: whitesmoke">Shopping Cart</h2>
 
 @if(Model.ShoppingCartItems.Count > 0){
-    <table class="table table-bordered table-striped">
+    <table class="table rounded rounded-3 table-striped bg-light">
         <thead>
             <tr>
 
@@ -49,7 +49,7 @@
     </div>
 }
 else{
-    <h2>There are no items in your cart</h2>
+    <h4 style="color: whitesmoke">There are no items in your cart</h4>
 }
 
 
