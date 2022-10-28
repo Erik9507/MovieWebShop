@@ -15,13 +15,19 @@ builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")));
-
 // Identity
+//5 rows below is one way to do it
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("defaultconnection")));
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
+
+// 4 rows below one way to do it
+//builder.Services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(
+//    builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+//               .AddEntityFrameworkStores<AppDbContext>();
 
 //For Sessions
 builder.Services.AddDistributedMemoryCache();

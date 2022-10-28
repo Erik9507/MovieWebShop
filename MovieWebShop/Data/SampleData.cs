@@ -13,7 +13,7 @@ namespace MovieWebShop.Data
             {
                 Id = "d49bc437-f9e7-41c4-be19-c17ad1691612",
                 Name = "Admin",
-                NormalizedName = "ADMIN"
+                NormalizedName = "Admin"
             };
             var userRole = new IdentityRole
             {
