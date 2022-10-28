@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,6 +29,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Statistics">Statistics</a>
                         </li>
+                        <partial name="_LoginPartial" />
                     </ul>
                     <form class="d-flex" asp-controller="Movie" asp-action="Search" method="get">
                         <input type="text" name="name" placeholder="Search title" class="nav-item" />

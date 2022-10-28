@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -12,9 +13,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Identity
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
 //For Sessions
 builder.Services.AddDistributedMemoryCache();
@@ -29,6 +36,7 @@ builder.Services.AddScoped<IGenericRepo<Genre>, GenreRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IGenericRepo<ShoppingcartItems>, ShoppingCartItemRepo>();
 builder.Services.AddScoped<ShoppingCart>(sc => ShoppingCart.GetCart(sc));
+builder.Services.AddScoped<AppDbContext>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -48,7 +56,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+// Identity
+app.UseAuthentication();
+//SampleData.Initialize(app); <---- CREATES SAMPLE ADMIN ON RUN TIME
+//DummyData.Initialize(app.Services); <--- DOES NOT WORK
 app.UseAuthorization();
+// Identity
+
 
 app.UseSession();
 
@@ -56,4 +71,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Movie}/{action=Index}/{id?}");
 
+app.MapRazorPages();
 app.Run();
