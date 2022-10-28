@@ -87,8 +87,10 @@ namespace MovieWebShop.Repos
 
         public decimal GetTotalPrice()
         {
-            var total = _context.ShoppingCartItems.Where(c => c.ShoppingcartId == ShoppingCartID)
-                .Select(c => c.Movie.Price * c.Quantity).Sum();
+            var total = _context.ShoppingCartItems
+                .Where(c => c.ShoppingcartId == ShoppingCartID)
+                .Select(c => c.Movie.IsOnSale ? c.Movie.SalePrice * c.Quantity : c.Movie.Price * c.Quantity)
+                .Sum();
 
             return total;
         }

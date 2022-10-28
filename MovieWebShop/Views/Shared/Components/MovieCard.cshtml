@@ -2,24 +2,37 @@
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-10">
-            <div class="row p-2 bg-white border rounded">
+            <div class="row p-2 bg-light border rounded">
                 <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="@Model.ImageUrl"></div>
                 <div class="col-md-6 mt-1">
-                    <h5 class="card-title"><a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.MovieId">@Model.Title</a></h5>
+                    <h5 class="card-title"><a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.MovieId">@Model.Title </a></h5>
                     <div class="mt-1 mb-1 spec-1"><span>Genre: @Model.Genre.GenreName</span></div>
-                    <div class="mt-1 mb-1 spec-1"><span>Director: @Model.Director</span></div>
+                    <div class="mt-1 mb-1 spec-1"><span>Director. @Model.Director</span></div>
                     <p>Description: @Model.Description</p>
                 </div>
                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                     <div class="d-flex flex-row align-items-center">
-                        <h4 class="mr-1">@Model.Price.ToString("c")</h4>
+                        @if (Model.IsOnSale)
+                        {
+                            <h4 style="color:red;" class="mr-1">
+                                @Model.SalePrice.ToString("c")
+                                <a title="Image from freeiconspng.com">
+                                    <img src="https://www.freeiconspng.com/uploads/sale-price-tag-png-21.png"
+                                     width="50" alt="Download Icon Sale Tag" />
+                                </a><span class="og-price">@Model.Price.ToString("c")</span>
+                            </h4>
+                        }
+                        else
+                        {
+                            <h4 class="mr-1">@Model.Price.ToString("c")</h4>
+                        }
                     </div>
                     <span class="strike-text">Movies in stock: @Model.Stock</span>
                     <h6 class="text-success">Free shipping</h6>
                     <div class="d-flex flex-column mt-4">
-                        <div class="addToCart"> 
+                        <div class="addToCart">
                             <p class="button">
-                                <a class="btn btn-primary"
+                                <a class="btn btn-primary" style="box-shadow: 2px 2px 1px grey"
                                    asp-controller="ShoppingCart"
                                    asp-action="AddToCart"
                                    asp-route-id="@Model.MovieId">Add To Cart</a>

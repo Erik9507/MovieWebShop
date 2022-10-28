@@ -12,11 +12,13 @@ namespace MovieWebShop.Controllers
 
         private readonly IOrderRepo _repo;
         private readonly ShoppingCart _cart;
+        private readonly IMovieRepo _mRepo;
 
-        public OrderController(IOrderRepo repo, ShoppingCart cartRepo)
+        public OrderController(IOrderRepo repo, ShoppingCart cartRepo, IMovieRepo mRepo)
         {
             _repo = repo;
             _cart = cartRepo;
+            _mRepo = mRepo;
         }
         public IActionResult Index()
         {
@@ -24,6 +26,16 @@ namespace MovieWebShop.Controllers
             {
                 Orders = _repo.GetAllOrders()
             };          
+            return View(viewModel);
+        }
+
+        public IActionResult Statistics()
+        {
+            OrderStatsViewModel viewModel = new OrderStatsViewModel
+            {
+                Orders = _repo.GetAllOrders(),
+                Movies = _mRepo.GetMovies
+            };
             return View(viewModel);
         }
 
