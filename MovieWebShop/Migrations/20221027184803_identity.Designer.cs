@@ -12,8 +12,8 @@ using MovieWebShop.Data;
 namespace MovieWebShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221027131514_godhlpme")]
-    partial class godhlpme
+    [Migration("20221027184803_identity")]
+    partial class identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,22 +49,6 @@ namespace MovieWebShop.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "9fa474d4-0246-47db-834e-5b44c2d3ae19",
-                            ConcurrencyStamp = "a75801ef-752f-4cea-bd8f-69a21675aa48",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "d49bc437-f9e7-41c4-be19-c17ad1691612",
-                            ConcurrencyStamp = "be65ea61-03ce-48d9-9cf6-c6790200fd37",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -155,24 +139,6 @@ namespace MovieWebShop.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "f3af40ad-1031-4f69-ba90-c628cbcefcd8",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "22ebba23-2f51-4fe2-a713-2c4a56898489",
-                            Email = "admin@test.se",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@TEST.SE",
-                            NormalizedUserName = "ADMIN@TEST.SE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO8eQIR6X7fyS8OM/u/HY1bfNYQFS4wkVFmy71msa+yAlf1laoFbR+iGmE5ZpH++kg==",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "Admin",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@test.se"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -237,13 +203,6 @@ namespace MovieWebShop.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "f3af40ad-1031-4f69-ba90-c628cbcefcd8",
-                            RoleId = "d49bc437-f9e7-41c4-be19-c17ad1691612"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

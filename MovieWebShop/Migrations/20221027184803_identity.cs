@@ -5,10 +5,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MovieWebShop.Migrations
 {
-    public partial class Identity : Migration
+    public partial class identity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                table: "Genres",
+                keyColumn: "GenreId",
+                keyValue: 1);
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "SalePrice",
+                table: "Movies",
+                type: "decimal(18,6)",
+                nullable: false,
+                oldClrType: typeof(decimal),
+                oldType: "decimal(18,2)");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -154,16 +167,6 @@ namespace MovieWebShop.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "9fa474d4-0246-47db-834e-5b44c2d3ae19", "af4159d3-fcdc-49d4-a000-5526b1870811", "User", "USER" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "d49bc437-f9e7-41c4-be19-c17ad1691612", "1f210677-afae-44eb-bffc-84c73e3bbc04", "Admin", "ADMIN" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -226,6 +229,19 @@ namespace MovieWebShop.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "SalePrice",
+                table: "Movies",
+                type: "decimal(18,2)",
+                nullable: false,
+                oldClrType: typeof(decimal),
+                oldType: "decimal(18,6)");
+
+            migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "GenreId", "GenreName" },
+                values: new object[] { 1, "Comedy" });
         }
     }
 }

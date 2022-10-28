@@ -10,6 +10,7 @@ namespace MovieWebShop.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+
         }
 
 
@@ -22,113 +23,41 @@ namespace MovieWebShop.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //SeedRoles(modelBuilder);
-            //SeedAdminUser(modelBuilder);
-            //SeedUserRole(modelBuilder);
+            this.SeedUsers(modelBuilder);
+            this.SeedUserRoles(modelBuilder);
+            this.SeedRoles(modelBuilder);
 
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
-            { Id = "9fa474d4-0246-47db-834e-5b44c2d3ae19", Name = "User", NormalizedName = "USER" });
-
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
-            { Id = "d49bc437-f9e7-41c4-be19-c17ad1691612", Name = "Admin", NormalizedName = "ADMIN" });
-
-            var hasher = new PasswordHasher<IdentityUser>();
-            var passwordHash = hasher.HashPassword(null, "Admin111!");
-
-            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
-            {
-                Id = "f3af40ad-1031-4f69-ba90-c628cbcefcd8",
-                UserName = "admin@test.se",
-                NormalizedUserName = "ADMIN@TEST.SE",
-                Email = "admin@test.se",
-                EmailConfirmed = true,
-                PhoneNumberConfirmed = true,
-                TwoFactorEnabled = false,
-                LockoutEnabled = false,
-                AccessFailedCount = 0,
-                NormalizedEmail = "ADMIN@TEST.SE",
-                SecurityStamp = "Admin",
-                PasswordHash = passwordHash
-            });
-
-            //IdentityUser admin = new IdentityUser();
-            //admin.Id = "f3af40ad-1031-4f69-ba90-c628cbcefcd8";
-            //admin.UserName = "admin@test.se";
-            //admin.NormalizedUserName = "ADMIN@TEST.SE";
-            //admin.Email = "admin@test.se";
-            //admin.EmailConfirmed = true;
-            //admin.PhoneNumberConfirmed = true;
-            //admin.TwoFactorEnabled = false;
-            //admin.LockoutEnabled = false;
-            //admin.AccessFailedCount = 0;
-            //admin.NormalizedEmail = "ADMIN@TEST.SE";
-            //admin.SecurityStamp = "Admin";
-            ////admin.PasswordHash = passwordHash;
-
-            //PasswordHasher<IdentityUser> ph = new PasswordHasher<IdentityUser>();
-            //admin.PasswordHash = ph.HashPassword(admin, "Admin111!");
-
-            //modelBuilder.Entity<IdentityUser>().HasData(admin);
-
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
-            {
-                RoleId = "d49bc437-f9e7-41c4-be19-c17ad1691612",
-                UserId = "f3af40ad-1031-4f69-ba90-c628cbcefcd8"
-            });
         }
-        
-        public void SeedAdminUser(ModelBuilder mB)
+        private void SeedUsers(ModelBuilder builder)
         {
-
-            var hasher = new PasswordHasher<IdentityUser>();
-            var passwordHash = hasher.HashPassword(null, "Admin111!");
-
-            mB.Entity<UserManager<IdentityUser>>().HasData(new IdentityUser
+            IdentityUser user = new IdentityUser()
             {
-                Id = "f3af40ad-1031-4f69-ba90-c628cbcefcd8",
-                UserName = "admin@test.se",
-                NormalizedUserName = "ADMIN@TEST.SE",
-                Email = "admin@test.se",
-                EmailConfirmed = true,
-                PhoneNumberConfirmed = true,
-                TwoFactorEnabled = false,
+                Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                UserName = "Admin",
+                Email = "admin@gmail.com",
                 LockoutEnabled = false,
-                AccessFailedCount = 0,
-                NormalizedEmail = "ADMIN@TEST.SE",
-                SecurityStamp = "Admin",
-                PasswordHash = passwordHash
-            });
+                PhoneNumber = "1234567890"
+            };
 
-            //IdentityUser admin = new IdentityUser();
-            //admin.Id = "f3af40ad-1031-4f69-ba90-c628cbcefcd8";
-            //admin.UserName = "admin@test.se";
-            //admin.NormalizedUserName = "ADMIN@TEST.SE";
-            //admin.Email = "admin@test.se";
-            //admin.EmailConfirmed = true;
-            //admin.PhoneNumberConfirmed = true;
-            //admin.TwoFactorEnabled = false;
-            //admin.LockoutEnabled = false;
-            //admin.AccessFailedCount = 0;
-            //admin.NormalizedEmail = "ADMIN@TEST.SE";
-            //admin.SecurityStamp = "Admin";
-            ////admin.PasswordHash = passwordHash;
+            PasswordHasher<IdentityUser> passwordHasher = new PasswordHasher<IdentityUser>();
+            passwordHasher.HashPassword(user, "Admin123!");
 
-            //mB.Entity<UserManager<IdentityUser>>().HasData(admin);
-
-            ////IdentityResult result = userManager.CreateAsync(admin, "Admin111!").Result;
-
-            ////if (result.Succeeded)
-            ////{
-            ////    userManager.AddToRoleAsync(admin, "Admin").Wait();
-            ////}
+            builder.Entity<IdentityUser>().HasData(user);
         }
-        public void SeedUserRole(ModelBuilder mB)
+
+        private void SeedRoles(ModelBuilder builder)
         {
-            mB.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
-            {
-                RoleId = "d49bc437-f9e7-41c4-be19-c17ad1691612",
-                UserId = "f3af40ad-1031-4f69-ba90-c628cbcefcd8"
-            });
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole() { Id = "fab4fac1-c546-41de-aebc-a14da6895711", Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "ADMIN" },
+                new IdentityRole() { Id = "c7b013f0-5201-4317-abd8-c211f91b7330", Name = "User", ConcurrencyStamp = "2", NormalizedName = "USER" }
+                );
+        }
+
+        private void SeedUserRoles(ModelBuilder builder)
+        {
+            builder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>() { RoleId = "fab4fac1-c546-41de-aebc-a14da6895711", UserId = "b74ddd14-6340-4840-95c2-db12554843e5" }
+                );
         }
     }
 }

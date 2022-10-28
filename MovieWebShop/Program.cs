@@ -22,10 +22,6 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
-// Identity
-
-
-
 
 //For Sessions
 builder.Services.AddDistributedMemoryCache();
@@ -40,6 +36,7 @@ builder.Services.AddScoped<IGenericRepo<Genre>, GenreRepo>();
 builder.Services.AddScoped<IOrderRepo, OrderRepo>();
 builder.Services.AddScoped<IGenericRepo<ShoppingcartItems>, ShoppingCartItemRepo>();
 builder.Services.AddScoped<ShoppingCart>(sc => ShoppingCart.GetCart(sc));
+builder.Services.AddScoped<AppDbContext>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -62,6 +59,8 @@ app.UseRouting();
 
 // Identity
 app.UseAuthentication();
+//SampleData.Initialize(app); <---- CREATES SAMPLE ADMIN ON RUN TIME
+//DummyData.Initialize(app.Services); <--- DOES NOT WORK
 app.UseAuthorization();
 // Identity
 
