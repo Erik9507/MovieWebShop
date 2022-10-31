@@ -12,8 +12,8 @@ using MovieWebShop.Data;
 namespace MovieWebShop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221028101240_identity")]
-    partial class identity
+    [Migration("20221031122245_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,22 @@ namespace MovieWebShop.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a17a5bbe-6f3f-44af-855c-28ec50eceb2d",
+                            ConcurrencyStamp = "e0812b4b-45b4-4bc1-82c4-a41a2ee87346",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "efd2b503-4910-48d4-903b-16ef0285418b",
+                            ConcurrencyStamp = "b3aa3b84-e41f-478a-9089-1f09327c5e32",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -139,6 +155,24 @@ namespace MovieWebShop.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ce02a491-dec2-4e08-936a-e64dd8ad72e1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "79b35cdd-0bf1-47da-9b64-83b1cb079cde",
+                            Email = "admin@test.se",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@TEST.SE",
+                            NormalizedUserName = "ADMIN@TEST.SE",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGtY5SNy54snVn55we9JGR1tQhZrb53idS5vWGu9Lfg4dGjI1bmxF6rAgU/ZKuq3yw==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "Admin",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@test.se"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -169,10 +203,12 @@ namespace MovieWebShop.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -201,6 +237,13 @@ namespace MovieWebShop.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "ce02a491-dec2-4e08-936a-e64dd8ad72e1",
+                            RoleId = "a17a5bbe-6f3f-44af-855c-28ec50eceb2d"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -209,10 +252,12 @@ namespace MovieWebShop.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

@@ -52,14 +52,14 @@ namespace MovieWebShop.Migrations
                         new
                         {
                             Id = "a17a5bbe-6f3f-44af-855c-28ec50eceb2d",
-                            ConcurrencyStamp = "d4d7ccc5-3f91-4412-93e8-dc929dc82738",
+                            ConcurrencyStamp = "e0812b4b-45b4-4bc1-82c4-a41a2ee87346",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
                             Id = "efd2b503-4910-48d4-903b-16ef0285418b",
-                            ConcurrencyStamp = "a783a0c5-7a72-4c75-8535-f4e24d2b617a",
+                            ConcurrencyStamp = "b3aa3b84-e41f-478a-9089-1f09327c5e32",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -159,13 +159,13 @@ namespace MovieWebShop.Migrations
                         {
                             Id = "ce02a491-dec2-4e08-936a-e64dd8ad72e1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "205c4e1a-a3c7-47de-a815-736da7d3d8eb",
+                            ConcurrencyStamp = "79b35cdd-0bf1-47da-9b64-83b1cb079cde",
                             Email = "admin@test.se",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TEST.SE",
                             NormalizedUserName = "ADMIN@TEST.SE",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIC8n6RUlk5mBf0hfGdrbC96sjlDSdgCChyibgMa6OfLBQwTu0kMJyUaC6yzabKAgw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGtY5SNy54snVn55we9JGR1tQhZrb53idS5vWGu9Lfg4dGjI1bmxF6rAgU/ZKuq3yw==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "Admin",
                             TwoFactorEnabled = false,

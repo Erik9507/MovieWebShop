@@ -9,4 +9,53 @@
             <partial name="Components//MovieCard" model="item" />
     }
 
+
 </div>
+<h1 style="color:whitesmoke; text-align:center" >Trending Movies</h1>
+<div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+
+        @foreach (var item in Model.results)
+        {
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                    <img src="@item.poster_path" class="card-img-top" alt="...">
+                <div class="card-body">
+                        <h5 class="card-title" style="text-align:center">
+                        @item.title
+                    </h5>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
+
+@*<div class="row">
+<h1 style="color:whitesmoke">Trending Movies</h1>
+    <table class="table rounded rounded-3 table-striped bg-light">
+
+		@foreach (var item in Model.results)
+		{
+			<tr>
+				<td class="text-left">
+					@item.title
+					<img class="text-lg-end" height="100" width="100" src="@item.poster_path">
+				</td>
+				<td>
+					
+				</td>
+
+			</tr>
+		}
+		
+	</table>
+
+</div>*@
