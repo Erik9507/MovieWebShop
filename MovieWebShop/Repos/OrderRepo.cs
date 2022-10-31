@@ -26,12 +26,21 @@ namespace MovieWebShop.Repos
                 {
                     Quantity = item.Quantity,
                     MovieId = item.MovieId,
-                    OrderId = order.OrderId,
-                    Price = item.Movie.Price * item.Quantity
+                    OrderId = order.OrderId
+                    //Price = item.Movie.Price * item.Quantity
                 };
 
+                if (item.Movie.IsOnSale)
+                {
+                    orderItem.Price = item.Movie.SalePrice;
+                }
+                else
+                {
+                    orderItem.Price = item.Movie.Price;
+                }
+
                 order.OrderItems.Add(orderItem);
-                order.OrderTotal += orderItem.Price;
+                order.OrderTotal += orderItem.Price * item.Quantity;
             }
             _context.Orders.Add(order);
             _context.SaveChanges();
