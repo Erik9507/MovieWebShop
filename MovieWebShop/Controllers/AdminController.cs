@@ -8,7 +8,7 @@ using MovieWebShop.ViewModels;
 
 namespace MovieWebShop.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
@@ -16,11 +16,11 @@ namespace MovieWebShop.Controllers
         private readonly IMovieRepo _movieRepo;
 
 
-        public AdminController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,IMovieRepo movieRepo)
+        public AdminController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMovieRepo movieRepo)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this._movieRepo = movieRepo;    
+            this._movieRepo = movieRepo;
         }
         public IActionResult Index()
         {
@@ -34,7 +34,7 @@ namespace MovieWebShop.Controllers
             var users = userManager.Users;
             return View(users);
         }
-        
+
         [HttpGet]
         public IActionResult RegisterUser()
         {
@@ -49,7 +49,7 @@ namespace MovieWebShop.Controllers
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ListUsers");
                 }
             }
             return View(model);
@@ -139,16 +139,16 @@ namespace MovieWebShop.Controllers
             return View();
         }
         public async Task<IActionResult> RegisterMovie(Movie movie)
-        {            
+        {
             if (movie == null)
             {
                 return BadRequest();
             }
-            if(ModelState.IsValid)
-            {
-                var added = _movieRepo.AddMovie(movie);
-            }
-            
+            //if (ModelState.IsValid)
+            //{
+            //    var added = _movieRepo.AddMovie(movie);
+            //}
+            var added = _movieRepo.AddMovie(movie);
             return RedirectToAction("ListMovies");
         }
         [HttpGet]
@@ -162,7 +162,7 @@ namespace MovieWebShop.Controllers
             return View(movie);
         }
         [HttpPost]
-        public async Task<IActionResult> EditMovie(int id, [Bind("MovieId, Title, Director, ReleaseYear, GenreId, Description, Price, Stock, SalePrice, SaleMessage, IsOnSale")] Movie movie)
+        public async Task<IActionResult> EditMovie(int id, [Bind("MovieId, Title, Director, ReleaseYear, GenreId, Description, Price, Stock, SalePrice, SaleMessage, IsOnSale, ImageUrl")] Movie movie)
         {
             _movieRepo.UpdateMovie(movie, id);
             return RedirectToAction("ListMovies");
@@ -170,27 +170,27 @@ namespace MovieWebShop.Controllers
 
         public async Task<IActionResult> DeleteMovie(int id)
         {
-        if (id == null)
-        {
-            return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var movie = _movieRepo.GetMovieById(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
         }
-        var movie = _movieRepo.GetMovieById(id);
-        if (movie == null)
+        //[HttpPost, ActionName("DeleteMovie")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            return NotFound();
+            var movie = _movieRepo.GetMovieById(id);
+            if (movie != null)
+            {
+                _movieRepo.DeleteMovie(id);
+            }
+            return RedirectToAction("ListMovies");
         }
-        return View(movie);
     }
-    [HttpPost, ActionName("DeleteMovie")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
-    {
-        var movie = _movieRepo.GetMovieById(id);
-        if (movie != null)
-        {
-            _movieRepo.DeleteMovie(id);
-        }
-        return RedirectToAction("ListMovies");
-    }
-}
 }

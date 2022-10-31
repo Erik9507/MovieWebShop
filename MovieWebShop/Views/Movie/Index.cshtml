@@ -1,4 +1,4 @@
-﻿@using MovieWebShop.ViewModels
+@using MovieWebShop.ViewModels
 @model HomeViewModel
 
 <h1 style="color:whitesmoke; text-align:center">Trending Movies</h1>
@@ -27,37 +27,6 @@
     @foreach (var item in Model.getMovies)
     {
 
-            <partial name="Components//MovieCard" model="item" />
+        <partial name="Components//MovieCard" model="item" />
     }
-
-
 </div>
-
-
-
-
-
-
-
-
-@*<div class="row">
-<h1 style="color:whitesmoke">Trending Movies</h1>
-    <table class="table rounded rounded-3 table-striped bg-light">
-
-		@foreach (var item in Model.results)
-		{
-			<tr>
-				<td class="text-left">
-					@item.title
-					<img class="text-lg-end" height="100" width="100" src="@item.poster_path">
-				</td>
-				<td>
-					
-				</td>
-
-			</tr>
-		}
-		
-	</table>
-
-</div>*@

@@ -7,7 +7,7 @@
                 <div class="col-md-6 mt-1">
                     <h5 class="card-title"><a asp-controller="Movie" asp-action="Details" asp-route-id="@Model.MovieId">@Model.Title </a></h5>
                     <div class="mt-1 mb-1 spec-1"><span>Genre: @Model.Genre.GenreName</span></div>
-                    <div class="mt-1 mb-1 spec-1"><span>Director. @Model.Director</span></div>
+                    <div class="mt-1 mb-1 spec-1"><span>Director: @Model.Director</span></div>
                     <p>Description: @Model.Description</p>
                 </div>
                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
@@ -19,7 +19,9 @@
                                 <a title="Image from freeiconspng.com">
                                     <img src="https://www.freeiconspng.com/uploads/sale-price-tag-png-21.png"
                                      width="50" alt="Download Icon Sale Tag" />
-                                </a><span class="og-price">@Model.Price.ToString("c")</span>
+                                </a>
+                                <br>
+                                <span class="og-price">@Model.Price.ToString("c")</span>
                             </h4>
                         }
                         else

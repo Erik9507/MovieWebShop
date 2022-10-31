@@ -4,7 +4,13 @@
 <div class="stats">
 
 <h1 style="color: whitesmoke">Order Statistics</h1>
-	<table class="table rounded rounded-3 table-striped bg-light">
+@if (Model.Orders.Count() < 1)
+	{
+		<h2>No Orders</h2>
+	}
+	else
+	{
+				<table class="table rounded rounded-3 table-striped bg-light">
 		<thead>
 			<tr>
 				<th class="text-center">Average order total:</th>
@@ -77,3 +83,5 @@
 
 		</tr>
 	</table>
+	}
+	</div>
