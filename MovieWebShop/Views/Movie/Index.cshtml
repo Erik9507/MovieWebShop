@@ -1,7 +1,9 @@
 @using MovieWebShop.ViewModels
 @model HomeViewModel
 
-<h1 style="color:whitesmoke; text-align:center">Trending Movies</h1>
+<div class="black-bar">
+<h1 style="color:whitesmoke; text-align:center">Upcoming Movies</h1>
+</div>
 <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
     <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
 
@@ -23,7 +25,9 @@
 </div>
 
 <div class="row">
-    @*<h3><a asp-controller="Movie" asp-action="Create"> <button class="btn btn-primary" type="submit">Add Movie</button> </a></h3>*@
+    <div class="black-bar">
+    <h1 style="color:whitesmoke; text-align:center">Movies in stock</h1>
+    </div>
     @foreach (var item in Model.getMovies)
     {
 
