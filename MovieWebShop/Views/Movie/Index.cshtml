@@ -1,6 +1,27 @@
 ﻿@using MovieWebShop.ViewModels
 @model HomeViewModel
 
+<h1 style="color:whitesmoke; text-align:center">Trending Movies</h1>
+<div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+
+        @foreach (var item in Model.results)
+        {
+
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="@item.poster_path" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align:center">
+                            @item.title
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
 <div class="row">
     @*<h3><a asp-controller="Movie" asp-action="Create"> <button class="btn btn-primary" type="submit">Add Movie</button> </a></h3>*@
     @foreach (var item in Model.getMovies)
@@ -11,26 +32,7 @@
 
 
 </div>
-<h1 style="color:whitesmoke; text-align:center" >Trending Movies</h1>
-<div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
-    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
 
-        @foreach (var item in Model.results)
-        {
-
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                    <img src="@item.poster_path" class="card-img-top" alt="...">
-                <div class="card-body">
-                        <h5 class="card-title" style="text-align:center">
-                        @item.title
-                    </h5>
-                </div>
-            </div>
-        </div>
-        }
-    </div>
-</div>
 
 
 
