@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieWebShop.Interfaces;
 using MovieWebShop.Models;
 using MovieWebShop.ViewModels;
+using static System.Net.WebRequestMethods;
 
 namespace MovieWebShop.Controllers
 {
@@ -19,9 +20,45 @@ namespace MovieWebShop.Controllers
         }
         public IActionResult Index()
         {
+            //Import From Api
+            IEnumerable<Result> trendingMovies = null;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://api.themoviedb.org");
+                var responseTask = client.GetAsync("/3/trending/all/day?api_key=980643b7daa7582814d69d137ed8bd8c");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+
+                    var readJob = result.Content.ReadAsAsync<HomeViewModel>();
+                    readJob.Wait();
+
+                    trendingMovies = readJob.Result.results.Where(x=> x.title != null || x.original_title != null).Take(4);
+                    foreach (var movie in trendingMovies)
+                    {
+                        movie.poster_path = "https://image.tmdb.org/t/p/original" + movie.poster_path;
+                    }
+                }
+                else
+                {
+                    trendingMovies = Enumerable.Empty<Result>();
+                    ModelState.AddModelError(string.Empty, "Error occured!");
+                }
+            }
+            //Import From Api
+
+
+
+
+
             var homeViewModel = new HomeViewModel
             {
-                getMovies = _repo.GetMovies
+                getMovies = _repo.GetMovies,
+                results = trendingMovies
             };
             return View(homeViewModel);
         }
